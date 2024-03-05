@@ -1,4 +1,4 @@
-#Connect-ExchangeOnline
+Connect-ExchangeOnline
 [int]$Daybefore = 0
 [int]$i = 0
 $Report = [System.Collections.Generic.List[Object]]::new(); $Now = Get-Date
@@ -10,8 +10,14 @@ do {
    
         $RemainingTime = (New-TimeSpan -Start $Now -End $Message.Expires)
         $Remaining = $RemainingTime.Days.toString() + " days " + $RemainingTime.Hours.toString() + " hours"
-        [String]$Recipient = $Null; 
-        $Recipient = $Address
+        [String]$Recipient = $Null; $c = 0
+        ForEach ($Address in $Message.RecipientAddress) {
+            If ($c -eq 0) {
+               $c++
+               $Recipient = $Address} 
+            Else 
+               {$Recipient = "; " + $Address }
+       }
         
         $ReportLine = [PSCustomObject]@{  #Update with details of what we have done
                 Identity         = $Message.Identity
