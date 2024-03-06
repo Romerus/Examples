@@ -1,4 +1,4 @@
-#Connect-ExchangeOnline
+Connect-ExchangeOnline
 [int]$Daybefore = 0
 [int]$i = 0
 $Report = [System.Collections.Generic.List[Object]]::new(); $Now = Get-Date
